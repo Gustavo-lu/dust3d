@@ -66,6 +66,9 @@ int main(int argc, char* argv[])
 
 #if !defined(Q_OS_WASM)
     QSurfaceFormat format = QSurfaceFormat::defaultFormat();
+    // Without this, EGL (Wayland) asks for OpenGL ES 3.3, context creation fails with EGL_BAD_MATCH,
+    // and QOpenGLWidget retries on every repaint, leaking driver memory until the system runs out (#184).
+    format.setRenderableType(QSurfaceFormat::OpenGL);
     format.setProfile(QSurfaceFormat::OpenGLContextProfile::CoreProfile);
     format.setVersion(3, 3);
     format.setAlphaBufferSize(8);
