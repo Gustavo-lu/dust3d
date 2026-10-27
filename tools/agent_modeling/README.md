@@ -37,6 +37,17 @@ spec.json ──compile──▶ model.ds3 ──dust3d -o──▶ model.glb �
    document into a spec. The agent (or a script) edits it, for example to recolour,
    re-proportion, or make variants in bulk, and builds it again.
 
+## MCP server
+
+`mcp_server.py` exposes the toolkit as MCP tools (`get_guide`, `build_model`, `lint_spec`,
+`decompile`, `list_rigs`); `build_model` returns the summary and the turnaround image.
+Needs `pip install mcp numpy pillow`. Models are written to `~/dust3d-models/<name>/`
+(override with `DUST3D_MODELS_DIR`).
+
+```bash
+claude mcp add -s user dust3d -e DUST3D_BIN=/path/to/dust3d -- python3 /path/to/tools/agent_modeling/mcp_server.py
+```
+
 ## What you need
 
 - **This folder** (`tools/agent_modeling`): pure Python 3 with numpy and Pillow. It
